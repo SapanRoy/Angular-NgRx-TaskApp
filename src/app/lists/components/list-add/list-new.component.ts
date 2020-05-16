@@ -32,7 +32,7 @@ export class NewListComponent implements OnDestroy, OnInit {
 
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close({ event: 'Cancel' });
   }
 
   addList() {
@@ -41,6 +41,7 @@ export class NewListComponent implements OnDestroy, OnInit {
     if (this.listForm.invalid) {
       return;
     }
+    this.dialogRef.close({ event:'Ok', data: this.listForm.value });
   }
 
 }

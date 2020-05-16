@@ -8,11 +8,11 @@ export interface ListState {
 }
 
 const initialState: ListState = {
-    currentListId:null,
-    lists:[],
+    currentListId: null,
+    lists: [],
     error: ''
 }
-    
+
 export function reducer(state = initialState, action): ListState {
     switch (action.type) {
         // After a create, the currentList is the new list.
@@ -39,6 +39,22 @@ export function reducer(state = initialState, action): ListState {
                 lists: [],
                 error: action.payload
             };
+
+        // After a delete, the currentList is null.
+        case ListActionTypes.DeleteListSuccess:
+            return {
+                ...state,
+                lists: state.lists.filter(list => list.id !== action.payload),
+                currentListId: null,
+                error: ''
+            };
+
+        case ListActionTypes.DelelteListFail:
+            return {
+                ...state,
+                error: action.payload
+            };
+
 
         default:
             return state;

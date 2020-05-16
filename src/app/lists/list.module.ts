@@ -15,7 +15,6 @@ import { ListService } from './list.service';
 // environment
 import { environment } from '../../environments/environment';
 // components
-import { ListComponent } from './list.component';
 import { NewListComponent } from './components/list-add/list-new.component';
 import { CardComponent } from './components/cards/card.component';
 import { NewCardComponent } from './components/cards/card-new/card-new.component.component';
@@ -25,7 +24,7 @@ import { ListDisplayComponent } from './components/list-disp/list-display.compon
 
 @NgModule({
   declarations: [
-    ListShellComponent, ListDisplayComponent, CardComponent, ListComponent, NewListComponent, NewCardComponent
+    ListShellComponent, ListDisplayComponent, CardComponent, NewListComponent, NewCardComponent
   ],
   imports: [ReactiveFormsModule,
     EffectsModule,
@@ -41,7 +40,7 @@ import { ListDisplayComponent } from './components/list-disp/list-display.compon
       logOnly: environment.production
     })],
   providers: [ListService],
-  exports:[ListShellComponent],
+  exports: [ListShellComponent],
   entryComponents: [NewListComponent],
 })
 export class ListModule {

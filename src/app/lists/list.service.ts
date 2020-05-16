@@ -19,8 +19,8 @@ export class ListService {
 
     createList(list: List): Observable<List> {
         // List Id must be null for the Web API to assign an Id
-        const newProduct = { ...list, id: null };
-        return this.http.post<List>(this.listURL, newProduct, )
+        const newList = { id: '', name: list.name };
+        return this.http.post<List>(this.listURL, newList, )
             .pipe(
                 tap(data => console.log('createList: ' + JSON.stringify(data))),
                 catchError(this.handleError)
@@ -34,9 +34,8 @@ export class ListService {
                 catchError(this.handleError)
             );
     }
-
     deleteList(id: string) {
-        return this.http.delete(`list/delete/${id}`)
+        return this.http.delete(`${this.listURL}/${id}`)
             .pipe(catchError(this.errorHandler));
     }
     getListById(id) {

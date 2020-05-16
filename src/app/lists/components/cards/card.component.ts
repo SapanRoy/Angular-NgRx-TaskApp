@@ -29,11 +29,11 @@ export class CardComponent implements OnInit {
   }
 
   confirmAndDeleteCard() {
-    this.confirmationBoxService.openConfirmationDialog(this.parentListId, this.inputCard.id, false).subscribe((isDeleteConfirmed) => {
-      if (isDeleteConfirmed) {
-        this.deleteCard();
-      }
-    });
+    // this.confirmationBoxService.openConfirmationDialog(this.parentListId, this.inputCard.id, false).subscribe((isDeleteConfirmed) => {
+    //   if (isDeleteConfirmed) {
+    //     this.deleteCard();
+    //   }
+    // });
   }
 
   deleteCard() {

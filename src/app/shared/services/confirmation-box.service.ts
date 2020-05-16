@@ -8,12 +8,11 @@ export class ConfirmationBoxService {
     constructor(private http: HttpClient,
         public dialog: MatDialog) {
     }
-    openConfirmationDialog(listid: string, cardId: string, isList: boolean): Observable<any> {
+    openConfirmationDialog(entityName: string, isList: boolean): Observable<any> {
         const yesNoDialog = this.dialog.open(ConfirmationBoxComponent, {
             data: {
-                listId: listid,
-                cardId: cardId,
-                isList: isList,
+                title: `Delete ${isList ? 'List' : 'Card'}-${entityName}`,
+                message: `${isList ? 'This action will delete list and all tasks.':'This action will delete card.'} Are you sure?`,
             },
             height: '200px',
             width: '400px',

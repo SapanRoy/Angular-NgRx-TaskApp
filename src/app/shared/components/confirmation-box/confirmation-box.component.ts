@@ -6,21 +6,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './confirmation-box.component.html',
   styleUrls: ['./confirmation-box.component.scss'],
 })
-export class ConfirmationBoxComponent implements OnInit {
-  message: string = "This action will delete the";
-  item: any;
+export class ConfirmationBoxComponent {
+  message: string;
   title: string;
+  isList: boolean;
   constructor(public dialog: MatDialogRef<ConfirmationBoxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, 
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.item = data;
-  }
-  ngOnInit() {
-    if (this.item.isList) {
-     
-    } else {
-     
-    }
+    this.message = data.message;
+    this.title = data.title;
   }
   cancel() {
     this.dialog.close(false);

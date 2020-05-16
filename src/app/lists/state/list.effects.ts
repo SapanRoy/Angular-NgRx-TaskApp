@@ -25,7 +25,7 @@ export class ListEffects {
             this.listService.getLists().pipe(
                 map(lists =>
                     (new listActions.LoadSuccess(lists)
-                )),
+                    )),
                 catchError(err => of(new listActions.LoadFail(err)))
             )
         )
@@ -39,6 +39,18 @@ export class ListEffects {
             this.listService.createList(list).pipe(
                 map(newList => (new listActions.CreateListSuccess(newList))),
                 catchError(err => of(new listActions.CreateListFail(err)))
+            )
+        )
+    );
+
+    @Effect()
+    deletelist$: Observable<Action> = this.actions$.pipe(
+        ofType(listActions.ListActionTypes.DeleteList),
+        map((action: listActions.DeleteList) => action.payload),
+        mergeMap((listId: string) =>
+            this.listService.deleteList(listId).pipe(
+                map(() => (new listActions.DeleteListSuccess(listId))),
+                catchError(err => of(new listActions.DeleteListFail(err)))
             )
         )
     );
