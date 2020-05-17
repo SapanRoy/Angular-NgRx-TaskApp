@@ -71,13 +71,25 @@ export class ListEffects {
     );
 
     @Effect()
-    deletecard$: Observable<Action> = this.actions$.pipe(
+    deleteCard$: Observable<Action> = this.actions$.pipe(
         ofType(listActions.ListActionTypes.DeleteCard),
         map((action: listActions.DeleteCard) => action.payload),
         mergeMap((cardData:any) =>
             this.cardService.deleteCard(cardData).pipe(
                 map(() => (new listActions.DeleteCardSuccess(cardData))),
                 catchError(err => of(new listActions.DeleteCardFail(err)))
+            )
+        )
+    );
+
+    @Effect()
+    moveCard$: Observable<Action> = this.actions$.pipe(
+        ofType(listActions.ListActionTypes.MoveCard),
+        map((action: listActions.MoveCard) => action.payload),
+        mergeMap((cardData:any) =>
+            this.cardService.moveCard(cardData).pipe(
+                map(() => (new listActions.Load())),
+                catchError(err => of(new listActions.MoveCardFail(err)))
             )
         )
     );

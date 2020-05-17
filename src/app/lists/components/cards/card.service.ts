@@ -27,21 +27,15 @@ export class CardService {
         return this.http.delete(`${this.cardURL}/${cardData.listId}/${cardData.cardId}`).pipe(catchError(this.errorHandler));
     }
 
-
-
-
-
-
-    moveCard(sourceListId: string, targetListId: string, cardId: string) {
+    moveCard(cardData:any) {
         let cardPramObj = new Object();
         cardPramObj["card"] = {
-            "sourceListId": sourceListId, "targetListId": targetListId,
-            "cardId": cardId
+            "sourceListId": cardData.sourceListId, "targetListId": cardData.targetListId,
+            "cardId": cardData.cardId
         };
-        return this.http.post(`card/move`, cardPramObj)
+        return this.http.post(`${this.cardURL}/move`, cardPramObj)
             .pipe(catchError(this.errorHandler));
     }
-
 
     getCardById(listId: string, cardId: string) {
         return this.http.get(`list/card/get/${listId}/${cardId}`).pipe(catchError(this.errorHandler));

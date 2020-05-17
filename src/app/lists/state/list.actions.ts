@@ -19,6 +19,10 @@ export enum ListActionTypes {
     DeleteCard = '[Card] Delete Card',
     DeleteCardSuccess = '[Card] Delete Card Success',
     DelelteCardFail = '[Card] Delete Card Fail',
+    MoveCard="[Card] Move Card",
+    MoveCardSuccess="[Card] Move Card Success",
+    MoveCardFail="[Card] Move Card Fail"
+
    }
 
 export class Load implements Action {
@@ -91,20 +95,33 @@ export class CreateCardFail implements Action {
     constructor(public payload: Card) { }
 }
 
-export class DeleteCardFail implements Action {
-    readonly type = ListActionTypes.DelelteCardFail;
-
-    constructor(public payload: string) { }
-}
-
 export class DeleteCard implements Action {
     readonly type = ListActionTypes.DeleteCard;
 
     constructor(public payload: any) { }
 }
+export class DeleteCardFail implements Action {
+    readonly type = ListActionTypes.DelelteCardFail;
 
+    constructor(public payload: string) { }
+}
 export class DeleteCardSuccess implements Action {
     readonly type = ListActionTypes.DeleteCardSuccess;
+
+    constructor(public payload: string) { }
+}
+export class MoveCard implements Action {
+    readonly type = ListActionTypes.MoveCard;
+
+    constructor(public payload: any) { }
+}
+export class MoveCardFail implements Action {
+    readonly type = ListActionTypes.MoveCardFail;
+
+    constructor(public payload: string) { }
+}
+export class MoveCardSuccess implements Action {
+    readonly type = ListActionTypes.MoveCardSuccess;
 
     constructor(public payload: string) { }
 }
