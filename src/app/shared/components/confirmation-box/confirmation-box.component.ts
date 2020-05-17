@@ -1,6 +1,7 @@
-import { Component, Inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
+// Core
+import { Component, Inject } from '@angular/core';
+// Angular Material
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
 
 @Component({
   templateUrl: './confirmation-box.component.html',

@@ -1,7 +1,11 @@
-import { Observable, of } from 'rxjs';
+// core
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+// rxjs
+import { Observable } from 'rxjs';
+// angular material
 import { MatDialog } from '@angular/material';
+// custom components
 import { ConfirmationBoxComponent } from '../components/confirmation-box/confirmation-box.component';
 @Injectable()
 export class ConfirmationBoxService {
@@ -12,14 +16,13 @@ export class ConfirmationBoxService {
         const yesNoDialog = this.dialog.open(ConfirmationBoxComponent, {
             data: {
                 title: `Delete ${isList ? 'List' : 'Card'}-${entityName}`,
-                message: `${isList ? 'This action will delete list and all tasks.':'This action will delete card.'} Are you sure?`,
+                message: `${isList ? 'This action will delete list and all tasks.' : 'This action will delete card.'} Are you sure?`,
             },
             height: '200px',
             width: '400px',
             disableClose: true
         });
         return yesNoDialog.afterClosed();
-
     }
 }
 

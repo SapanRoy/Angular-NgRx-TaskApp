@@ -1,20 +1,19 @@
-import { Store } from '@ngrx/store';
-import { DeleteCard } from './../../state/list.actions';
 // core
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-// rxjs
-import { Subscription } from 'rxjs';
+import { Component, Input } from '@angular/core';
+// ngrx
+import { Store } from '@ngrx/store';
 // services
 import { ConfirmationBoxService } from '../../../shared/services/confirmation-box.service';
-
+// state
 import * as fromList from '../../state';
+// reducer
 import * as listActions from '../../state/list.actions';
 @Component({
   selector: 'component-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   constructor(private confirmationBoxService: ConfirmationBoxService,
     private store: Store<fromList.State>) { }
   
@@ -23,14 +22,6 @@ export class CardComponent implements OnInit {
   @Input()
   inputCard: any;
 
-  cardListModelSubscription: Subscription;
-
-  ngOnInit() {
-  }
-  ngDestroy() {
-    //this.cardListModelSubscription.unsubscribe();
-  }
-
   confirmAndDeleteCard() {
     this.confirmationBoxService.openConfirmationDialog(this.inputCard.name,false) .subscribe((isDeleteConfirmed) => {
       if (isDeleteConfirmed) {
@@ -38,10 +29,5 @@ export class CardComponent implements OnInit {
         this.store.dispatch(new listActions.DeleteCard(cardData));
       }
     });
-  }
-
-
-
-  updateListInModel(parentListId: string): void {
   }
 }

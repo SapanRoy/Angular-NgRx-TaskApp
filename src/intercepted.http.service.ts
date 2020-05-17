@@ -1,5 +1,6 @@
+// environment config
 import { environment } from './environments/environment.prod';
-import { Observable } from "rxjs";
+// core
 import { Injectable } from "@angular/core";
 import {
   HttpInterceptor,
@@ -7,13 +8,13 @@ import {
   HttpHandler,
   HttpErrorResponse
 } from "@angular/common/http";
+// rxjs
+import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { MatDialog } from "@angular/material";
 
 @Injectable({ providedIn: 'root' })
 export class InterceptedHttpService implements HttpInterceptor {
   constructor(
-    public dialog: MatDialog,
   ) {
 
   }

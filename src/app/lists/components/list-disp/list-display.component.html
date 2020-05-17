@@ -1,37 +1,33 @@
 <div class="row" *ngIf="lists">
-    <div class="d-inline-flex p-1">
-        <div class="d-flex flex-row">
-            <div class="p-1" *ngFor="let list of lists">
-                    <div class="d-flex flex-column bg-light mb-3 w-30" 
-                    cdkDropList id="{{list.id}}" [cdkDropListData]="list" 
-                    [cdkDropListConnectedTo]="listsConnectedTo"
-                    (cdkDropListDropped)="onCardDrop($event)">
-                    <div class="d-flex flex-row">
-                      <div class="p-2 flex-grow-1">
-                        <p class="text-secondary">{{list.name}}</p>
-                      </div>
-                      <div class="p-0 m-0">
-                        <button type="button" (click)="confirmAndDeleteList(list.id, list.name)" class="btn btn-link" title="Delete list">
-                          <p class="text-danger">x</p>
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="p-2 grab" *ngIf="list.cards">
-                         <div class="d-flex flex-column" *ngFor="let card of list.cards">
-                          <component-card cdkDrag [cdkDragData]="card" [parentListId]="list.id" [inputCard]="card"></component-card>
-                        </div> 
-                      </div>
-                    </div>
-                    <div class="p-2 text-right">
-                      <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
-                        <p class="text-info">+ Card</p>
-                      </button>
-                    </div>
-                  </div>
+  <div class="d-inline-flex p-1">
+    <div class="d-flex flex-row">
+      <div class="p-1" *ngFor="let list of lists">
+        <div class="d-flex flex-column bg-light mb-3 w-30" cdkDropList id="{{list.id}}" [cdkDropListData]="list" [cdkDropListConnectedTo]="listsConnectedTo"
+          (cdkDropListDropped)="onCardDrop($event)">
+          <div class="d-flex flex-row">
+            <div class="p-2 flex-grow-1">
+              <p class="text-secondary">{{list.name}}</p>
             </div>
+            <div class="p-0 m-0">
+              <button type="button" (click)="confirmAndDeleteList(list.id, list.name)" class="btn btn-link" title="Delete list">
+                <p class="text-danger">x</p>
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="p-2 grab" *ngIf="list.cards">
+              <div class="d-flex flex-column" *ngFor="let card of list.cards">
+                <component-card cdkDrag [cdkDragData]="card" [parentListId]="list.id" [inputCard]="card"></component-card>
+              </div>
+            </div>
+          </div>
+          <div class="p-2 text-right">
+            <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
+              <p class="text-info">+ Card</p>
+            </button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-

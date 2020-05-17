@@ -13,7 +13,7 @@ const initialState: ListState = {
     lists: [],
     error: ''
 }
-
+// pass initial state as default parameter
 export function reducer(state = initialState, action): ListState {
     switch (action.type) {
         // After a create, the currentList is the new list.
@@ -58,8 +58,6 @@ export function reducer(state = initialState, action): ListState {
                 let newState = insertCard(state, action);
                 return newState;
             }
-
-        // After a delete, the currrentCard is null.
         case ListActionTypes.DeleteCardSuccess:
             return deleleCard(state, action);
         case ListActionTypes.DelelteCardFail:
@@ -67,8 +65,6 @@ export function reducer(state = initialState, action): ListState {
                 ...state,
                 error: action.payload
             };
-
-
         default:
             return state;
     }
@@ -85,10 +81,10 @@ function deleleCard(state, action) {
         newCards.splice(cardIndex, 1);
         let tempList = JSON.parse(JSON.stringify(newLists));
         tempList[listIndex]["cards"] = newCards;
-        // new state
+        // After a delete, the currrentCard is null.
         return {
             lists: tempList,
-            currentListId: action.payload.id,
+            currentListId: null,
             error: ''
         };
     } catch (err) {
@@ -96,8 +92,6 @@ function deleleCard(state, action) {
         throw err;
     }
 }
-
-
 
 function insertCard(state, action) {
     try {

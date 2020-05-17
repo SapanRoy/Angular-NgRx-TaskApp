@@ -7,7 +7,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { ConfirmationBoxComponent } from './components/confirmation-box/confirmation-box.component';
 // service
 import { ConfirmationBoxService } from './services/confirmation-box.service';
-
 @NgModule({
     declarations: [
         ConfirmationBoxComponent

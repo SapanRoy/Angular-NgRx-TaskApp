@@ -22,7 +22,6 @@ import { ListShellComponent } from './containers/list-shell/list-shell.component
 import { ListDisplayComponent } from './components/list-disp/list-display.component';
 import { CardService } from './components/cards/card.service';
 
-
 @NgModule({
   declarations: [
     ListShellComponent, ListDisplayComponent, CardComponent, NewListComponent, NewCardComponent

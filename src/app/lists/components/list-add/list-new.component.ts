@@ -1,8 +1,8 @@
 // core
 import { Component, OnInit, OnDestroy, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+// angular material
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
 @Component({
   selector: 'component-list-model',
   templateUrl: './list-new.component.html',
@@ -10,6 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewListComponent implements OnDestroy, OnInit {
+
   listName = new FormControl();
   listForm: FormGroup;
   submitted = false;
@@ -19,19 +20,21 @@ export class NewListComponent implements OnDestroy, OnInit {
     private formBuilder: FormBuilder
   ) {
   }
+
   ngOnInit() {
     this.listForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
   }
+
   ngOnDestroy() {
   }
 
   // convenience getter for easy access to form fields
   get formControls() { return this.listForm.controls; }
 
-
   close() {
+    // pass Cancel flag to parent
     this.dialogRef.close({ event: 'Cancel' });
   }
 
@@ -41,7 +44,7 @@ export class NewListComponent implements OnDestroy, OnInit {
     if (this.listForm.invalid) {
       return;
     }
-    this.dialogRef.close({ event:'Ok', data: this.listForm.value });
+    // pass Ok flag to parent
+    this.dialogRef.close({ event: 'Ok', data: this.listForm.value });
   }
-
 }

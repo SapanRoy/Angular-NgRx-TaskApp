@@ -1,7 +1,8 @@
-import { Card } from './../components/cards/card';
-import { List } from '../list';
 /* NgRx */
 import { Action } from '@ngrx/store';
+/* entity */
+import { Card } from './../components/cards/card';
+import { List } from '../list';
 
 export enum ListActionTypes {
     CreateList = '[List] Create List',
@@ -19,11 +20,11 @@ export enum ListActionTypes {
     DeleteCard = '[Card] Delete Card',
     DeleteCardSuccess = '[Card] Delete Card Success',
     DelelteCardFail = '[Card] Delete Card Fail',
-    MoveCard="[Card] Move Card",
-    MoveCardSuccess="[Card] Move Card Success",
-    MoveCardFail="[Card] Move Card Fail"
+    MoveCard = "[Card] Move Card",
+    MoveCardSuccess = "[Card] Move Card Success",
+    MoveCardFail = "[Card] Move Card Fail"
 
-   }
+}
 
 export class Load implements Action {
     readonly type = ListActionTypes.Load;

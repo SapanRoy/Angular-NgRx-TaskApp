@@ -1,3 +1,4 @@
+// We may remove modules if not required to reduce bundle size. 
 import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
@@ -16,7 +17,6 @@ import {
   MatCardModule,
   MatTooltipModule
 } from '@angular/material';
-
 
 @NgModule({
   imports: [

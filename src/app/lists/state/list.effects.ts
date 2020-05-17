@@ -1,16 +1,17 @@
 import { Card } from './../components/cards/card';
 import { Injectable } from '@angular/core';
-
+// rxjs
 import { Observable, of } from 'rxjs';
 import { mergeMap, map, catchError } from 'rxjs/operators';
-
+// service
 import { ListService } from '../list.service';
 import { CardService } from './../components/cards/card.service';
+// entity
 import { List } from '../list';
-
 /* NgRx */
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+// custom action
 import * as listActions from './list.actions';
 
 @Injectable()

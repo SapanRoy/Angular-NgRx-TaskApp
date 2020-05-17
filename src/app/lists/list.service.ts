@@ -8,7 +8,6 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { List } from './list';
 
-
 @Injectable()
 export class ListService {
     listURL = "api/lists";
@@ -34,10 +33,12 @@ export class ListService {
                 catchError(this.handleError)
             );
     }
+
     deleteList(id: string) {
         return this.http.delete(`${this.listURL}/${id}`)
             .pipe(catchError(this.errorHandler));
     }
+
     getListById(id) {
         return this.http.get(`list/get/${id}`)
             .pipe(catchError(this.errorHandler));
@@ -46,6 +47,7 @@ export class ListService {
     errorHandler(error: HttpErrorResponse) {
         return throwError(error);
     }
+
     private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

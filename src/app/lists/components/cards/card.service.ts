@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 // rxjs
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+// entity
 import { Card } from './card';
 
 @Injectable()
@@ -23,11 +24,11 @@ export class CardService {
             );
     }
 
-    deleteCard(cardData:any) {
+    deleteCard(cardData: any) {
         return this.http.delete(`${this.cardURL}/${cardData.listId}/${cardData.cardId}`).pipe(catchError(this.errorHandler));
     }
 
-    moveCard(cardData:any) {
+    moveCard(cardData: any) {
         let cardPramObj = new Object();
         cardPramObj["card"] = {
             "sourceListId": cardData.sourceListId, "targetListId": cardData.targetListId,
@@ -40,13 +41,16 @@ export class CardService {
     getCardById(listId: string, cardId: string) {
         return this.http.get(`list/card/get/${listId}/${cardId}`).pipe(catchError(this.errorHandler));
     }
+
     getCardFromList(listId: string, cardId: string) {
         return this.http.post(`list/card`, { "listId": listId, "cardId": cardId })
             .pipe(catchError(this.errorHandler));
     }
+
     errorHandler(error: HttpErrorResponse) {
         return throwError(error);
     }
+
     private handleError(err) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

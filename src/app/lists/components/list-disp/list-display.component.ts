@@ -1,14 +1,25 @@
-import { NewCardComponent } from './../cards/card-new/card-new.component.component';
+// core
+import { Component, Input, SimpleChanges } from '@angular/core';
+// angular material
 import { MatDialog } from '@angular/material';
+// ngrx
 import { Store } from '@ngrx/store';
-import { ConfirmationBoxService } from './../../../shared/services/confirmation-box.service';
-import { Component, Input, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { List } from '../../list';
-import * as fromList from '../../state';
-import * as listActions from '../../state/list.actions';
-import { AppConfig } from '../../../config/app.config';
-import { Card } from '../cards/card';
+// drag-drop
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+// state
+import * as fromList from '../../state';
+// action
+import * as listActions from '../../state/list.actions';
+// config
+import { AppConfig } from '../../../config/app.config';
+// entity
+import { List } from '../../list';
+import { Card } from '../cards/card';
+// service
+import { ConfirmationBoxService } from './../../../shared/services/confirmation-box.service';
+// component
+import { NewCardComponent } from './../cards/card-new/card-new.component.component';
+
 @Component({
     selector: 'list-disp',
     templateUrl: './list-display.component.html',
@@ -19,29 +30,30 @@ export class ListDisplayComponent {
         private store: Store<fromList.State>,
         private dialog: MatDialog) {
     }
+
     @Input()
     lists: List[];
+    
+    // reference confirmation model
     dialogRef: any;
 
+    // for drag-drop 
     listsConnectedTo = Array<String>();
 
+    ngOnInit() {
+        this.listsConnectedTo = new Array<string>();
+    }
 
     ngOnChanges(changes: SimpleChanges) {
-        console.log('ngOnChanges');
         // only run when property "lists" changed
         if (changes['lists']) {
-             // generate ids of list for drag and drop
+             // generate ids of lists for drag and drop`
             this.lists.map(list => {
                 this.listsConnectedTo.push(list.id);
             });
         }
     }
 
-    ngOnInit() {
-       
-        this.listsConnectedTo = new Array<string>();
-       
-    }
     confirmAndDeleteList(id: string, name: string): void {
         this.confirmationBoxService.openConfirmationDialog(name, true).subscribe((isDeleteConfirmed) => {
             if (isDeleteConfirmed) {

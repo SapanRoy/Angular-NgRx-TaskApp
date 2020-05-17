@@ -1,6 +1,7 @@
 // core
 import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+// angular material
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -23,6 +24,7 @@ export class NewCardComponent implements OnInit {
   ) {
     this.parentListName = data;
   }
+
   ngOnInit() {
     this.cardForm = this.formBuilder.group({
       name: ['', Validators.required]
@@ -33,6 +35,7 @@ export class NewCardComponent implements OnInit {
   get formControls() { return this.cardForm.controls; }
 
   close() {
+    // send cancel flag to parent
     this.dialogRef.close({ event: 'Cancel'});
   }
 
@@ -42,6 +45,7 @@ export class NewCardComponent implements OnInit {
     if (this.cardForm.invalid) {
       return;
     }
+    // send ok flag to parent
     this.dialogRef.close({ event: 'Ok', data: this.cardForm.value });
   }
 }

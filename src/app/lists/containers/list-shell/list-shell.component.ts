@@ -1,14 +1,21 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
+// config
 import { AppConfig } from './../../../config/app.config';
-import { NewListComponent } from './../../components/list-add/list-new.component';
-import { MatDialog } from '@angular/material';
+// core
 import { Component, OnInit } from '@angular/core';
+// angular material
+import { MatDialog } from '@angular/material';
+// store
 import { Store, select } from '@ngrx/store';
+// rxjs
 import { Observable } from 'rxjs';
+// component
+import { NewListComponent } from './../../components/list-add/list-new.component';
+// state
 import * as fromList from '../../state';
+// action
 import * as listActions from '../../state/list.actions';
+// entity
 import { List } from '../../list';
-
 
 @Component({
   selector: 'list-shell',
@@ -35,7 +42,7 @@ export class ListShellComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Ok') {
-        let list:List = {id:null, name:result.data.name, cards:[]};
+        let list: List = { id: null, name: result.data.name, cards: [] };
         this.createList(list);
       }
     });
