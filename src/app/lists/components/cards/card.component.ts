@@ -1,11 +1,14 @@
+import { Store } from '@ngrx/store';
+import { DeleteCard } from './../../state/list.actions';
 // core
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 // rxjs
 import { Subscription } from 'rxjs';
 // services
-import { ToastService } from '../../../shared/services/toast.service';
 import { ConfirmationBoxService } from '../../../shared/services/confirmation-box.service';
 
+import * as fromList from '../../state';
+import * as listActions from '../../state/list.actions';
 @Component({
   selector: 'component-card',
   templateUrl: './card.component.html',
@@ -13,7 +16,7 @@ import { ConfirmationBoxService } from '../../../shared/services/confirmation-bo
 })
 export class CardComponent implements OnInit {
   constructor(private confirmationBoxService: ConfirmationBoxService,
-    private toastService: ToastService) { }
+    private store: Store<fromList.State>) { }
   
   @Input()
   parentListId: string;
@@ -29,15 +32,15 @@ export class CardComponent implements OnInit {
   }
 
   confirmAndDeleteCard() {
-    // this.confirmationBoxService.openConfirmationDialog(this.parentListId, this.inputCard.id, false).subscribe((isDeleteConfirmed) => {
-    //   if (isDeleteConfirmed) {
-    //     this.deleteCard();
-    //   }
-    // });
+    this.confirmationBoxService.openConfirmationDialog(this.inputCard.name,false) .subscribe((isDeleteConfirmed) => {
+      if (isDeleteConfirmed) {
+        let cardData = {listId:this.parentListId, cardId:this.inputCard.id};
+        this.store.dispatch(new listActions.DeleteCard(cardData));
+      }
+    });
   }
 
-  deleteCard() {
-  }
+
 
   updateListInModel(parentListId: string): void {
   }

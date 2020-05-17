@@ -1,9 +1,11 @@
+import { Card } from './../components/cards/card';
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 
 import { ListService } from '../list.service';
+import { CardService } from './../components/cards/card.service';
 import { List } from '../list';
 
 /* NgRx */
@@ -15,6 +17,7 @@ import * as listActions from './list.actions';
 export class ListEffects {
 
     constructor(private listService: ListService,
+        private cardService: CardService,
         private actions$: Actions) { }
 
 
@@ -54,6 +57,31 @@ export class ListEffects {
             )
         )
     );
+
+    @Effect()
+    createCard$: Observable<Action> = this.actions$.pipe(
+        ofType(listActions.ListActionTypes.CreateCard),
+        map((action: listActions.CreateCard) => action.payload),
+        mergeMap((card: Card) =>
+            this.cardService.createCard(card).pipe(
+                map(newCard => (new listActions.CreateCardSuccess(newCard))),
+                catchError(err => of(new listActions.CreateCardFail(err)))
+            )
+        )
+    );
+
+    @Effect()
+    deletecard$: Observable<Action> = this.actions$.pipe(
+        ofType(listActions.ListActionTypes.DeleteCard),
+        map((action: listActions.DeleteCard) => action.payload),
+        mergeMap((cardData:any) =>
+            this.cardService.deleteCard(cardData).pipe(
+                map(() => (new listActions.DeleteCardSuccess(cardData))),
+                catchError(err => of(new listActions.DeleteCardFail(err)))
+            )
+        )
+    );
+
 }
 
 

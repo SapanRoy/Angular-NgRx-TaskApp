@@ -17,14 +17,14 @@
                       </div>
                     </div>
                     <div>
-                      <!-- <div class="p-2 grab" *ngIf="list.cards">
+                      <div class="p-2 grab" *ngIf="list.cards">
                          <div class="d-flex flex-column" *ngFor="let card of list.cards">
-                          <component-card cdkDrag [cdkDragData]="card" [parentListId]="inputList.id" [inputCard]="card"></component-card>
+                          <component-card cdkDrag [cdkDragData]="card" [parentListId]="list.id" [inputCard]="card"></component-card>
                         </div> 
-                      </div> -->
+                      </div>
                     </div>
                     <div class="p-2 text-right">
-                      <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog()">
+                      <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
                         <p class="text-info">+ Card</p>
                       </button>
                     </div>

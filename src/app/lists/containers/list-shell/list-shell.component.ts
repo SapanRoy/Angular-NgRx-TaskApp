@@ -35,7 +35,7 @@ export class ListShellComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       if (result.event === 'Ok') {
-        let list:List = {id:null, name:result.data.name};
+        let list:List = {id:null, name:result.data.name, cards:[]};
         this.createList(list);
       }
     });

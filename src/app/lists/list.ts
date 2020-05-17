@@ -4,4 +4,5 @@ import { Card } from './components/cards/card';
 export interface List {
     id: string;
     name: string;
+    cards: Card[];
 }

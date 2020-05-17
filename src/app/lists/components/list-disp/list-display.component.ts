@@ -1,9 +1,13 @@
+import { NewCardComponent } from './../cards/card-new/card-new.component.component';
+import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { ConfirmationBoxService } from './../../../shared/services/confirmation-box.service';
 import { Component, Input } from '@angular/core';
 import { List } from '../../list';
 import * as fromList from '../../state';
 import * as listActions from '../../state/list.actions';
+import { AppConfig } from '../../../config/app.config';
+import { Card } from '../cards/card';
 @Component({
     selector: 'list-disp',
     templateUrl: './list-display.component.html',
@@ -11,16 +15,38 @@ import * as listActions from '../../state/list.actions';
 })
 export class ListDisplayComponent {
     constructor(private confirmationBoxService: ConfirmationBoxService,
-        private store: Store<fromList.State>) {
+        private store: Store<fromList.State>,
+        private dialog: MatDialog) {
     }
     @Input()
     lists: List[];
+    dialogRef: any;
 
-    confirmAndDeleteList(id: string, name: string) {
+    ngOnInit() {
+    }
+    confirmAndDeleteList(id: string, name: string): void {
         this.confirmationBoxService.openConfirmationDialog(name, true).subscribe((isDeleteConfirmed) => {
             if (isDeleteConfirmed) {
                 this.store.dispatch(new listActions.DeleteList(id));
             }
         });
+    }
+    openAddCardDialog(list: List): void {
+        this.dialogRef = this.dialog.open(NewCardComponent,
+            {
+                data: list.name,
+                height: AppConfig.ModelHeight,
+                width: AppConfig.ModelWidth,
+            });
+
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result.event === 'Ok') {
+                let card: Card = { id: null, name: result.data.name, parentListId: list.id };
+                this.creatCard(card);
+            }
+        });
+    }
+    creatCard(card: Card): void {
+        this.store.dispatch(new listActions.CreateCard(card));
     }
 }

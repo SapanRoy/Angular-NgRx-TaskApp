@@ -1,8 +1,7 @@
 // core
-import { Component, OnInit, OnDestroy, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'component-list-model',
@@ -10,11 +9,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./card-new.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewCardComponent implements OnDestroy, OnInit {
+export class NewCardComponent implements OnInit {
   parentListId: string;
   parentListName: string;
   cardName = new FormControl();
-  private cardListModelSubscription: Subscription;
 
   cardForm: FormGroup;
   submitted = false;
@@ -23,22 +21,19 @@ export class NewCardComponent implements OnDestroy, OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder
   ) {
-
+    this.parentListName = data;
   }
   ngOnInit() {
     this.cardForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
   }
-  ngOnDestroy() {
-    this.cardListModelSubscription.unsubscribe();
-  }
 
   // convenience getter for easy access to form fields
   get formControls() { return this.cardForm.controls; }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close({ event: 'Cancel'});
   }
 
   addCard() {
@@ -47,5 +42,6 @@ export class NewCardComponent implements OnDestroy, OnInit {
     if (this.cardForm.invalid) {
       return;
     }
+    this.dialogRef.close({ event: 'Ok', data: this.cardForm.value });
   }
 }

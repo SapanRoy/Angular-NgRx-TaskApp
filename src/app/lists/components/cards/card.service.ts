@@ -1,56 +1,71 @@
-// // core
-// import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
+// core
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-// // rxjs
-// import { catchError } from 'rxjs/operators';
-// import { throwError } from 'rxjs';
+// rxjs
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
+import { Card } from './card';
 
-// // service
-// import { CardListModelService } from '../../services/card-list-model.service';
-// import { ListService } from '../../list/service/list.service';
+@Injectable()
+export class CardService {
+    cardURL = "api/lists/cards";
+    constructor(
+        private http: HttpClient) { }
 
-// // model
-// import { CardListModel } from '../../model/card-list.model';
+    createCard(card: Card): Observable<Card> {
+        // List Id must be null for the Web API to assign an Id
+        const newCard = { id: '', name: card.name, parentListId: card.parentListId };
+        return this.http.post<Card>(this.cardURL, newCard, )
+            .pipe(
+                tap(data => console.log('createList: ' + JSON.stringify(data))),
+                catchError(this.handleError)
+            );
+    }
 
-// @Injectable()
-// export class CardService {
-//     private cardListModel: CardListModel;
-//     constructor(
-//         private http: HttpClient,
-//         private cardListModelService: CardListModelService,
-//         private listService: ListService) { }
+    deleteCard(cardData:any) {
+        return this.http.delete(`${this.cardURL}/${cardData.listId}/${cardData.cardId}`).pipe(catchError(this.errorHandler));
+    }
 
-//     addCard(card: Card, parentListId: string) {
 
-//         let cardData = new Object();
-//         cardData['parentListId'] = parentListId;
-//         cardData['name'] = card.name;
 
-//         let paramObj = new Object();
-//         paramObj['card'] = cardData;
-//         return this.http.post('card/add', paramObj)
-//             .pipe(catchError(this.errorHandler));
-//     }
-//     moveCard(sourceListId: string, targetListId: string, cardId: string) {
-//         let cardPramObj = new Object();
-//         cardPramObj["card"] = { "sourceListId": sourceListId, "targetListId": targetListId,
-//         "cardId": cardId };
-//         return this.http.post(`card/move`, cardPramObj)
-//             .pipe(catchError(this.errorHandler));
-//     }
-//     deleteCard(listId: string, cardId: string) {
-//         return this.http.delete(`list/card/delete/${listId}/${cardId}`).pipe(catchError(this.errorHandler));
-//     }
-//     getCardById(listId: string, cardId: string) {
-//         return this.http.get(`list/card/get/${listId}/${cardId}`).pipe(catchError(this.errorHandler));
-//     }
-//     getCardFromList(listId: string, cardId: string) {
-//         return this.http.post(`list/card`, { "listId": listId, "cardId": cardId })
-//             .pipe(catchError(this.errorHandler));
-//     }
-//     errorHandler(error: HttpErrorResponse) {
-//         return throwError(error);
-//     }
 
-// }
+
+
+    moveCard(sourceListId: string, targetListId: string, cardId: string) {
+        let cardPramObj = new Object();
+        cardPramObj["card"] = {
+            "sourceListId": sourceListId, "targetListId": targetListId,
+            "cardId": cardId
+        };
+        return this.http.post(`card/move`, cardPramObj)
+            .pipe(catchError(this.errorHandler));
+    }
+
+
+    getCardById(listId: string, cardId: string) {
+        return this.http.get(`list/card/get/${listId}/${cardId}`).pipe(catchError(this.errorHandler));
+    }
+    getCardFromList(listId: string, cardId: string) {
+        return this.http.post(`list/card`, { "listId": listId, "cardId": cardId })
+            .pipe(catchError(this.errorHandler));
+    }
+    errorHandler(error: HttpErrorResponse) {
+        return throwError(error);
+    }
+    private handleError(err) {
+        // in a real world app, we may send the server to some remote logging infrastructure
+        // instead of just logging it to the console
+        let errorMessage: string;
+        if (err.error instanceof ErrorEvent) {
+            // A client-side or network error occurred. Handle it accordingly.
+            errorMessage = `An error occurred: ${err.error.message}`;
+        } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+        }
+        console.error(err);
+        return throwError(errorMessage);
+    }
+}

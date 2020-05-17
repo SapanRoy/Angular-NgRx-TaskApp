@@ -1,3 +1,4 @@
+import { Card } from './../components/cards/card';
 import { List } from '../list';
 /* NgRx */
 import { Action } from '@ngrx/store';
@@ -12,7 +13,13 @@ export enum ListActionTypes {
     Load = '[List] Load',
     LoadSuccess = '[List] Load Success',
     LoadFail = '[List] Load Fail',
-}
+    CreateCard = '[Card] Create Card',
+    CreateCardSuccess = '[Card] Create Card Success',
+    CreateCardFail = '[Card] Create Card Fail',
+    DeleteCard = '[Card] Delete Card',
+    DeleteCardSuccess = '[Card] Delete Card Success',
+    DelelteCardFail = '[Card] Delete Card Fail',
+   }
 
 export class Load implements Action {
     readonly type = ListActionTypes.Load;
@@ -58,8 +65,46 @@ export class DeleteListSuccess implements Action {
 
     constructor(public payload: string) { }
 }
+
 export class DeleteListFail implements Action {
     readonly type = ListActionTypes.DelelteListFail;
+
+    constructor(public payload: string) { }
+}
+
+
+
+// Card
+export class CreateCard implements Action {
+    readonly type = ListActionTypes.CreateCard;
+    constructor(public payload: Card) {
+    }
+}
+
+export class CreateCardSuccess implements Action {
+    readonly type = ListActionTypes.CreateCardSuccess;
+    constructor(public payload: Card) {
+    }
+}
+export class CreateCardFail implements Action {
+    readonly type = ListActionTypes.CreateCardFail;
+    constructor(public payload: Card) { }
+}
+
+export class DeleteCardFail implements Action {
+    readonly type = ListActionTypes.DelelteCardFail;
+
+    constructor(public payload: string) { }
+}
+
+export class DeleteCard implements Action {
+    readonly type = ListActionTypes.DeleteCard;
+
+    constructor(public payload: any) { }
+}
+
+export class DeleteCardSuccess implements Action {
+    readonly type = ListActionTypes.DeleteCardSuccess;
 
     constructor(public payload: string) { }
 }

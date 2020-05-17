@@ -19,7 +19,7 @@ export class ListService {
 
     createList(list: List): Observable<List> {
         // List Id must be null for the Web API to assign an Id
-        const newList = { id: '', name: list.name };
+        const newList = { id: '', name: list.name};
         return this.http.post<List>(this.listURL, newList, )
             .pipe(
                 tap(data => console.log('createList: ' + JSON.stringify(data))),

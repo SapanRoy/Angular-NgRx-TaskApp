@@ -20,6 +20,7 @@ import { CardComponent } from './components/cards/card.component';
 import { NewCardComponent } from './components/cards/card-new/card-new.component.component';
 import { ListShellComponent } from './containers/list-shell/list-shell.component';
 import { ListDisplayComponent } from './components/list-disp/list-display.component';
+import { CardService } from './components/cards/card.service';
 
 
 @NgModule({
@@ -39,9 +40,9 @@ import { ListDisplayComponent } from './components/list-disp/list-display.compon
       maxAge: 25,
       logOnly: environment.production
     })],
-  providers: [ListService],
+  providers: [ListService, CardService],
   exports: [ListShellComponent],
-  entryComponents: [NewListComponent],
+  entryComponents: [NewListComponent, NewCardComponent],
 })
 export class ListModule {
 }

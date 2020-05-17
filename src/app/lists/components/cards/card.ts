@@ -1,5 +1,6 @@
 /* Defines the card */
 export interface Card {
-    id: string ;
+    id: string;
     name: string;
+    parentListId:string;
 }
