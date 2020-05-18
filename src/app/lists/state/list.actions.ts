@@ -33,6 +33,7 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
     readonly type = ListActionTypes.LoadSuccess;
     constructor(public payload: List[]) {
+        console.log(payload);
     }
 }
 
