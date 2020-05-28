@@ -1,0 +1,15 @@
+<div *ngIf="list.isEditMode" class="row">
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="col">
+                <p (click)="toggelEditMode(list)" class="text-secondary"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+            </div>
+            <div class="col">
+                <p (click)="editList(list)" class="text-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <input type="text" [(ngModel)]="list.name" />
+    </div>
+</div>

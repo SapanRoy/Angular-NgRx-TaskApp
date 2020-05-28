@@ -33,9 +33,10 @@ export class ListDisplayComponent {
 
     @Input()
     lists: List[];
-    
+
     // reference confirmation model
     dialogRef: any;
+
 
     // for drag-drop 
     listsConnectedTo = Array<String>();
@@ -47,7 +48,7 @@ export class ListDisplayComponent {
     ngOnChanges(changes: SimpleChanges) {
         // only run when property "lists" changed
         if (changes['lists']) {
-             // generate ids of lists for drag and drop`
+            // generate ids of lists for drag and drop`
             this.lists.map(list => {
                 this.listsConnectedTo.push(list.id);
             });
@@ -68,7 +69,6 @@ export class ListDisplayComponent {
                 height: AppConfig.ModelHeight,
                 width: AppConfig.ModelWidth,
             });
-
         this.dialogRef.afterClosed().subscribe(result => {
             if (result.event === 'Ok') {
                 let card: Card = { id: null, name: result.data.name, parentListId: list.id };
@@ -76,9 +76,18 @@ export class ListDisplayComponent {
             }
         });
     }
+    editList(list: List) {
+
+    }
+    toggelEditMode(list:List){
+        let updatedList = {...list};
+        updatedList.isEditMode =  !updatedList.isEditMode;
+        this.store.dispatch(new listActions.ToggleListEditMode(updatedList));
+    }
     creatCard(card: Card): void {
         this.store.dispatch(new listActions.CreateCard(card));
     }
+
     onCardDrop(data: CdkDragDrop<string[]>): void {
         let sourceList = JSON.parse(JSON.stringify(data.previousContainer.data));
         let targetList = JSON.parse(JSON.stringify(data.container.data));

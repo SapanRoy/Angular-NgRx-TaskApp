@@ -24,6 +24,11 @@ export function reducer(state = initialState, action): ListState {
                 currentListId: action.payload.id,
                 error: ''
             };
+        case ListActionTypes.CreateListFail:
+            return {
+                ...state,
+                error: action.payload
+            }
         case ListActionTypes.LoadSuccess:
             return {
                 ...state,
@@ -36,7 +41,16 @@ export function reducer(state = initialState, action): ListState {
                 lists: [],
                 error: action.payload
             }
-
+        case ListActionTypes.ToggleListEditMode:
+            {
+                const updatedLists = state.lists.map(list => action.payload.id === list.id ? action.payload : list);
+                return {
+                    ...state,
+                    lists: updatedLists,
+                    currentListId: action.payload.id,
+                    error: ''
+                };
+            }
         // After a delete, the currentList is null.
         case ListActionTypes.DeleteListSuccess:
             return {

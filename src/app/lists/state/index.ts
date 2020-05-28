@@ -18,3 +18,8 @@ export const getLists = createSelector(
     getListFeatureState,
     state => state.lists
 );
+
+export const getError = createSelector(
+    getListFeatureState,
+    state => state.error
+);

@@ -8,6 +8,7 @@ export enum ListActionTypes {
     CreateList = '[List] Create List',
     CreateListSuccess = '[List] Create List Success',
     CreateListFail = '[List] Create List Fail',
+    ToggleListEditMode='[List] Toggle List Edit Mode',
     DeleteList = '[List] Delete List',
     DeleteListSuccess = '[List] Delete List Success',
     DelelteListFail = '[List] Delete list Fail',
@@ -60,6 +61,12 @@ export class CreateListFail implements Action {
     constructor(public payload: List) { }
 }
 
+export class ToggleListEditMode implements Action {
+    readonly type = ListActionTypes.ToggleListEditMode;
+    constructor(public payload: List) {
+    }
+}
+
 export class DeleteList implements Action {
     readonly type = ListActionTypes.DeleteList;
 
@@ -77,8 +84,6 @@ export class DeleteListFail implements Action {
 
     constructor(public payload: string) { }
 }
-
-
 
 // Card
 export class CreateCard implements Action {

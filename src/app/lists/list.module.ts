@@ -1,7 +1,7 @@
 // core
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 // store
@@ -12,23 +12,26 @@ import { ListEffects } from './state/list.effects';
 import { reducer } from './state/list.reducer';
 // service
 import { ListService } from './list.service';
+import { CardService } from './components/cards/card.service';
 // environment
 import { environment } from '../../environments/environment';
 // components
 import { NewListComponent } from './components/list-add/list-new.component';
+import { ListEditComponent } from './components/list-edit/list-edit.component';
 import { CardComponent } from './components/cards/card.component';
 import { NewCardComponent } from './components/cards/card-new/card-new.component.component';
 import { ListShellComponent } from './containers/list-shell/list-shell.component';
 import { ListDisplayComponent } from './components/list-disp/list-display.component';
-import { CardService } from './components/cards/card.service';
 
 @NgModule({
   declarations: [
-    ListShellComponent, ListDisplayComponent, CardComponent, NewListComponent, NewCardComponent
+    ListShellComponent, ListDisplayComponent, CardComponent, NewListComponent, NewCardComponent, ListEditComponent
   ],
   imports: [ReactiveFormsModule,
     EffectsModule,
-    CommonModule, DragDropModule,
+    CommonModule,
+    FormsModule,
+    DragDropModule,
     HttpClientModule,
     StoreModule.forFeature('lists', reducer),
     EffectsModule.forFeature(

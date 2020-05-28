@@ -1,22 +1,32 @@
+import { tap } from 'rxjs/operators';
+import { ofType } from '@ngrx/effects';
 // core
-import { Component, OnInit, OnDestroy, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 // angular material
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+// store
+import { Store, select } from '@ngrx/store';
+// state
+import * as fromList from '../../state';
+import { Card } from '../cards/card';
+// action
+import * as listActions from '../../state/list.actions';
+import { List } from '../../list';
+
 @Component({
-  selector: 'component-list-model',
+  selector: 'list-add',
   templateUrl: './list-new.component.html',
   styleUrls: ['./list-new.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewListComponent implements OnDestroy, OnInit {
+export class NewListComponent implements OnInit {
 
   listName = new FormControl();
   listForm: FormGroup;
   submitted = false;
-
-  constructor(public dialogRef: MatDialogRef<NewListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+  addListError$: Observable<string>;
+  constructor(private store: Store<fromList.State>,
     private formBuilder: FormBuilder
   ) {
   }
@@ -25,18 +35,11 @@ export class NewListComponent implements OnDestroy, OnInit {
     this.listForm = this.formBuilder.group({
       name: ['', Validators.required]
     });
-  }
-
-  ngOnDestroy() {
+    this.addListError$ = this.store.pipe(select(fromList.getError));
   }
 
   // convenience getter for easy access to form fields
   get formControls() { return this.listForm.controls; }
-
-  close() {
-    // pass Cancel flag to parent
-    this.dialogRef.close({ event: 'Cancel' });
-  }
 
   addList() {
     this.submitted = true;
@@ -44,7 +47,14 @@ export class NewListComponent implements OnDestroy, OnInit {
     if (this.listForm.invalid) {
       return;
     }
-    // pass Ok flag to parent
-    this.dialogRef.close({ event: 'Ok', data: this.listForm.value });
+    let list: List = { id: null, squenceNo: 0, isEditMode: false, name: this.listForm.value.name, cards: [] };
+    this.store.dispatch(new listActions.CreateList(list));
+
+    this.addListError$.subscribe(error => {
+      if (!error) {
+        this.listForm.reset();
+        this.submitted = false;
+      }
+    });
   }
 }

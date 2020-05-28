@@ -1,33 +1,50 @@
-<div class="row" *ngIf="lists">
-  <div class="d-inline-flex p-1">
-    <div class="d-flex flex-row">
-      <div class="p-1" *ngFor="let list of lists">
-        <div class="d-flex flex-column bg-light mb-3 w-30" cdkDropList id="{{list.id}}" [cdkDropListData]="list" [cdkDropListConnectedTo]="listsConnectedTo"
-          (cdkDropListDropped)="onCardDrop($event)">
-          <div class="d-flex flex-row">
-            <div class="p-2 flex-grow-1">
-              <p class="text-secondary">{{list.name}}</p>
-            </div>
-            <div class="p-0 m-0">
-              <button type="button" (click)="confirmAndDeleteList(list.id, list.name)" class="btn btn-link" title="Delete list">
-                <p class="text-danger">x</p>
+<div class="row p-4" *ngIf="lists">
+    <div class="p-2" *ngFor="let list of lists">
+        <div class=" bg-light mb-3">
+            <div class="col w-30 bg-light list" cdkDropList id="{{list.id}}" [cdkDropListData]="list" [cdkDropListConnectedTo]="listsConnectedTo" (cdkDropListDropped)="onCardDrop($event)">
+                <div class="row list-header">
+                    <div>
+                        <button type="button" (click)="confirmAndDeleteList(list.id, list.name)" class="btn btn-link" title="Delete list">
+                        <p class="text-danger">x</p>
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="!list.isEditMode" class="row">
+                    <div class="col-sm-3 editList">
+                        <button class="float-left" type="button" (click)="toggelEditMode(list)" class="btn btn-link" title="Edit list">
+                <p class="text-secondary"><i class="fa fa-1x fa-pencil" aria-hidden="true"></i></p>
               </button>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="text-secondary">{{list.name}}</p>
+                    </div>
+                </div>
+                <div *ngIf="list.isEditMode" class="row">
+                    <div class="col-sm-3">
+                        <div class="row">
+                            <div class="col">
+                                <p (click)="toggelEditMode(list)" class="text-secondary"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+                            </div>
+                            <div class="col">
+                                <p (click)="editList(list)" class="text-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="text" [(ngModel)]="list.name" />
+                    </div>
+                </div>
+                <div class="p-2 grab" *ngIf="list.cards">
+                    <div class="col" *ngFor="let card of list.cards">
+                        <component-card cdkDrag [cdkDragData]="card" [parentListId]="list.id" [inputCard]="card"></component-card>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div>
-            <div class="p-2 grab" *ngIf="list.cards">
-              <div class="d-flex flex-column" *ngFor="let card of list.cards">
-                <component-card cdkDrag [cdkDragData]="card" [parentListId]="list.id" [inputCard]="card"></component-card>
-              </div>
-            </div>
-          </div>
-          <div class="p-2 text-right">
-            <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
+            <div class="text-right">
+                <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
               <p class="text-info">+ Card</p>
             </button>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

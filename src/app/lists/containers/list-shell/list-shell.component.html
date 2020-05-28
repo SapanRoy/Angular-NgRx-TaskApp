@@ -5,10 +5,7 @@
         </div>
     </div>
     <div class="row p-1">
-        <div class="col"></div>
-        <div class="col-auto" title="Add list">
-            <button type="button" (click)="openCreatListDialog()" class="btn btn-sm btn-link text-primary">+ List</button>
-        </div>
+        <list-add></list-add>
     </div>
     <div class="row">
         <list-disp [lists]="lists$ | async"></list-disp>
