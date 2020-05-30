@@ -8,8 +8,6 @@ import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 // rxjs
 import { Observable } from 'rxjs';
-// component
-import { NewListComponent } from './../../components/list-add/list-new.component';
 // state
 import * as fromList from '../../state';
 // action

@@ -25,6 +25,13 @@ export class ListService {
             );
     }
 
+    editList(list: List): Observable<List> {
+        return this.http.put<List>(this.listURL, list, )
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
     getLists(): Observable<List[]> {
         return this.http.get<List[]>(this.listURL)
             .pipe(

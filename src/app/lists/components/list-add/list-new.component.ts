@@ -5,12 +5,10 @@ import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/cor
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 // angular material
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // store
 import { Store, select } from '@ngrx/store';
 // state
 import * as fromList from '../../state';
-import { Card } from '../cards/card';
 // action
 import * as listActions from '../../state/list.actions';
 import { List } from '../../list';

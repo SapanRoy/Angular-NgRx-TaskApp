@@ -8,23 +8,32 @@ export enum ListActionTypes {
     CreateList = '[List] Create List',
     CreateListSuccess = '[List] Create List Success',
     CreateListFail = '[List] Create List Fail',
+
+    EditList = '[List] Edit List',
+    EditListSuccess = '[List] Edit List Success',
+    EditListFail = '[List] Edit List Fail',
+
     ToggleListEditMode='[List] Toggle List Edit Mode',
+
     DeleteList = '[List] Delete List',
     DeleteListSuccess = '[List] Delete List Success',
     DelelteListFail = '[List] Delete list Fail',
+
     Load = '[List] Load',
     LoadSuccess = '[List] Load Success',
     LoadFail = '[List] Load Fail',
+
     CreateCard = '[Card] Create Card',
     CreateCardSuccess = '[Card] Create Card Success',
     CreateCardFail = '[Card] Create Card Fail',
+
     DeleteCard = '[Card] Delete Card',
     DeleteCardSuccess = '[Card] Delete Card Success',
     DelelteCardFail = '[Card] Delete Card Fail',
+
     MoveCard = "[Card] Move Card",
     MoveCardSuccess = "[Card] Move Card Success",
     MoveCardFail = "[Card] Move Card Fail"
-
 }
 
 export class Load implements Action {
@@ -58,6 +67,23 @@ export class CreateListSuccess implements Action {
 
 export class CreateListFail implements Action {
     readonly type = ListActionTypes.CreateListFail;
+    constructor(public payload: List) { }
+}
+
+export class EditList implements Action {
+    readonly type = ListActionTypes.EditList;
+    constructor(public payload: List) {
+    }
+}
+
+export class EditListSuccess implements Action {
+    readonly type = ListActionTypes.EditListSuccess;
+    constructor(public payload: List) {
+    }
+}
+
+export class EditListFail implements Action {
+    readonly type = ListActionTypes.EditListFail;
     constructor(public payload: List) { }
 }
 

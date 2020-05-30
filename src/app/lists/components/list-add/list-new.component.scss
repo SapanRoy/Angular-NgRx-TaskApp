@@ -1,0 +1,16 @@
+::-webkit-input-placeholder {
+    /* Edge */
+    color: lightgrey;
+    font-size: 0.6rem;
+}
+
+ :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: lightgrey;
+    font-size: 0.6rem;
+}
+
+ ::placeholder {
+    color: lightgrey;
+    font-size: 0.6rem;
+}

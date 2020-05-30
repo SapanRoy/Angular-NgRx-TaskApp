@@ -46,6 +46,17 @@ export class ListEffects {
             )
         )
     );
+    @Effect()
+    editList$: Observable<Action> = this.actions$.pipe(
+        ofType(listActions.ListActionTypes.EditList),
+        map((action: listActions.EditList) => action.payload),
+        mergeMap((list: List) =>
+            this.listService.editList(list).pipe(
+                map(updatedList => (new listActions.EditListSuccess(updatedList))),
+                catchError(err => of(new listActions.EditListFail(err)))
+            )
+        )
+    );
 
     @Effect()
     deletelist$: Observable<Action> = this.actions$.pipe(

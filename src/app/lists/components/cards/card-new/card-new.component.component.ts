@@ -5,7 +5,6 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'component-list-model',
   templateUrl: './card-new.component.html',
   styleUrls: ['./card-new.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -19,9 +18,7 @@ export class NewCardComponent implements OnInit {
   submitted = false;
 
   constructor(public dialogRef: MatDialogRef<NewCardComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder
-  ) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
     this.parentListName = data;
   }
 
