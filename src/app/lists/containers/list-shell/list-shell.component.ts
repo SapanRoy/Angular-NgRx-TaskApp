@@ -1,5 +1,3 @@
-// config
-import { AppConfig } from './../../../config/app.config';
 // core
 import { Component, OnInit } from '@angular/core';
 // angular material
@@ -14,7 +12,6 @@ import * as fromList from '../../state';
 import * as listActions from '../../state/list.actions';
 // entity
 import { List } from '../../list';
-
 @Component({
   selector: 'list-shell',
   templateUrl: './list-shell.component.html',

@@ -1,7 +1,7 @@
 /* NgRx */
 import { Action } from '@ngrx/store';
 /* entity */
-import { Card } from './../components/cards/card';
+import { Card } from '../components/cards/card';
 import { List } from '../list';
 
 export enum ListActionTypes {
@@ -43,7 +43,6 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
     readonly type = ListActionTypes.LoadSuccess;
     constructor(public payload: List[]) {
-        console.log(payload);
     }
 }
 

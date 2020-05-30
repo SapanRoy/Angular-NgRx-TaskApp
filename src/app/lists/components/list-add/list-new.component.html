@@ -1,7 +1,7 @@
 <form [formGroup]="listForm" (ngSubmit)="addList()" novalidate>
     <div class="form-row">
         <div class="form-group col">
-            <input type="text" placeholder="name (required)" formControlName="name" class="form-control" />
+            <input #inputListName type="text" placeholder="name (required)" formControlName="name" class="form-control" />
         </div>
         <div class="form-group col pl-4">
             <button type="submit" class="btn btn-sm btn-link text-primary">+ List</button>

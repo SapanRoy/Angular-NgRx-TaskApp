@@ -1,7 +1,7 @@
 import { tap } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 // core
-import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 // angular material
@@ -19,6 +19,7 @@ import { List } from '../../list';
   styleUrls: ['./list-new.component.scss'],
 })
 export class NewListComponent implements OnInit {
+@ViewChild('inputListName',null) inputListName:any;
 
   listName = new FormControl();
   listForm: FormGroup;
@@ -30,6 +31,7 @@ export class NewListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.inputListName.nativeElement.focus();
     this.listForm = this.formBuilder.group({
       name: ['', Validators.required]
     });

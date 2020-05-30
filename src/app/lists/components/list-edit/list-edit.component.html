@@ -1,13 +1,13 @@
 <form [formGroup]="listEditForm" (ngSubmit)="editList()" novalidate>
     <div class="form-row">
-        <div class="col-sm-1 pl-3 pt-2">
-            <p title="Cancel edit" (click)="toggelEditMode()" class="text-secondary"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+        <div class="col-sm-1">
+            <button title="Cancel update" (click)="toggelEditMode()" type="button" class="btn btn-sm text-secondary"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
         </div>
         <div class="col-sm-2">
-            <button title="Update list" type="submit" class="btn text-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button title="Update list" type="submit" class="btn btn-sm text-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         </div>
         <div class="col-sm-7">
-            <input type="text" formControlName="name" class="form-control" />
+            <input #inputListName type="text" formControlName="name" class="form-control" />
         </div>
     </div>
     <div class="form-row">

@@ -1,11 +1,12 @@
+// rxjs
 import { Observable } from 'rxjs';
+// core
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 // store
 import { Store, select } from '@ngrx/store';
 // state
 import * as fromList from '../../state';
-import { Card } from '../cards/card';
 // action
 import * as listActions from '../../state/list.actions';
 import { List } from '../../list';
@@ -16,6 +17,9 @@ import { List } from '../../list';
   styleUrls: ['./list-edit.component.scss']
 })
 export class ListEditComponent implements OnInit {
+
+  @ViewChild('inputListName',null) inputListName:any;
+
   @Input()
   list: List;
 
@@ -28,6 +32,7 @@ export class ListEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get formControls() { return this.listEditForm.controls; }
   ngOnInit() {
+    this.inputListName.nativeElement.focus();
     this.listEditForm = this.formBuilder.group({
       name: [this.list.name, Validators.required]
     });

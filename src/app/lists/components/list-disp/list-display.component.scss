@@ -18,6 +18,10 @@
     padding-top: 0%;
 }
 
+.listContainer:focus {
+    border: 2px blue dashed;
+}
+
 .btn-link:focus,
 .btn-link:active {
     box-shadow: none !important;

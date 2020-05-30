@@ -1,5 +1,5 @@
 // core
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, HostListener } from '@angular/core';
 // angular material
 import { MatDialog } from '@angular/material';
 // ngrx
@@ -16,9 +16,9 @@ import { AppConfig } from '../../../config/app.config';
 import { List } from '../../list';
 import { Card } from '../cards/card';
 // service
-import { ConfirmationBoxService } from './../../../shared/services/confirmation-box.service';
+import { ConfirmationBoxService } from '../../../shared/services/confirmation-box.service';
 // component
-import { NewCardComponent } from './../cards/card-new/card-new.component.component';
+import { NewCardComponent } from '../cards/card-new/card-new.component.component';
 
 @Component({
     selector: 'app-list-disp',
@@ -36,7 +36,6 @@ export class ListDisplayComponent {
 
     // reference confirmation model
     dialogRef: any;
-
 
     // for drag-drop 
     listsConnectedTo = Array<String>();
@@ -76,18 +75,16 @@ export class ListDisplayComponent {
             }
         });
     }
-    editList(list: List) {
 
-    }
-    toggelEditMode(list:List){
-        let updatedList = {...list};
-        updatedList.isEditMode =  !updatedList.isEditMode;
+    toggelEditMode(list: List) {
+        let updatedList = { ...list };
+        updatedList.isEditMode = !updatedList.isEditMode;
         this.store.dispatch(new listActions.ToggleListEditMode(updatedList));
     }
     creatCard(card: Card): void {
         this.store.dispatch(new listActions.CreateCard(card));
     }
-
+    // events
     onCardDrop(data: CdkDragDrop<string[]>): void {
         let sourceList = JSON.parse(JSON.stringify(data.previousContainer.data));
         let targetList = JSON.parse(JSON.stringify(data.container.data));
@@ -97,5 +94,14 @@ export class ListDisplayComponent {
         }
         let cardData = { 'sourceListId': sourceList.id, 'targetListId': targetList.id, "cardId": draggedCard.id };
         this.store.dispatch(new listActions.MoveCard(cardData));
+    }
+    onDeleteList(list: any) {
+        this.confirmAndDeleteList(list.id, list.name);
+    }
+    onAddList(list: any) {
+        this.openAddCardDialog(list);
+    }
+    onListEdit(list: any) {
+        this.toggelEditMode(list);
     }
 }

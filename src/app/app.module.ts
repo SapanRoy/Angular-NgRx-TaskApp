@@ -1,3 +1,6 @@
+
+// core
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // ngrx
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -13,11 +16,11 @@ import { ListModule } from './lists/list.module';
 // Components
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptedHttpService } from 'src/intercepted.http.service';
+// service
+import { InterceptedHttpService } from '../intercepted.http.service';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

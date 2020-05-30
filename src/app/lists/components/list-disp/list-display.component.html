@@ -1,17 +1,17 @@
 <div class="row p-4" *ngIf="lists">
-    <div class="p-2" *ngFor="let list of lists">
-        <div class=" bg-light mb-3">
+    <div class="p-2" *ngFor="let list of lists; let listIndex = index">
+        <div class="listContainer bg-light mb-3" (editElement)="onListEdit($event)" (addElement)="onAddList($event)" (deleteElement)="onDeleteList($event)" [element-focus-directive]="list" [tabindex]=listIndex>
             <div class="col w-30 bg-light list" cdkDropList id="{{list.id}}" [cdkDropListData]="list" [cdkDropListConnectedTo]="listsConnectedTo" (cdkDropListDropped)="onCardDrop($event)">
                 <div class="row list-header">
                     <div>
-                        <button type="button" (click)="confirmAndDeleteList(list.id, list.name)" class="btn btn-link" title="Delete list">
+                        <button tabindex=-1 type="button" (click)="confirmAndDeleteList(list.id, list.name)" class="btn btn-link" title="Delete list">
                         <p class="text-danger">x</p>
                         </button>
                     </div>
                 </div>
                 <div *ngIf="!list.isEditMode" class="row">
                     <div class="col-sm-3 editList">
-                        <button class="float-left" type="button" (click)="toggelEditMode(list)" class="btn btn-link" title="Edit list">
+                        <button tabindex=-1 class="float-left" type="button" (click)="toggelEditMode(list)" class="btn btn-link" title="Edit list">
                 <p class="text-secondary"><i class="fa fa-1x fa-pencil" aria-hidden="true"></i></p>
               </button>
                     </div>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="text-right">
-                <button type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
+                <button tabindex=-1 type="button" class="btn btn-sm btn-link" title="Add card to list." (click)="openAddCardDialog(list)">
               <p class="text-info">+ Card</p>
             </button>
             </div>

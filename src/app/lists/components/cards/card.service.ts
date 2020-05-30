@@ -19,7 +19,7 @@ export class CardService {
         const newCard = { id: '', name: card.name, parentListId: card.parentListId };
         return this.http.post<Card>(this.cardURL, newCard, )
             .pipe(
-                tap(data => console.log('createList: ' + JSON.stringify(data))),
+                // tap(data => console.log('createList: ' + JSON.stringify(data))),
                 catchError(this.handleError)
             );
     }

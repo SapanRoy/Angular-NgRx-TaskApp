@@ -22,10 +22,14 @@ import { CardComponent } from './components/cards/card.component';
 import { NewCardComponent } from './components/cards/card-new/card-new.component.component';
 import { ListShellComponent } from './containers/list-shell/list-shell.component';
 import { ListDisplayComponent } from './components/list-disp/list-display.component';
+// directive
+import { ElementFocusDirective } from './components/directive/focus.directive';
+
 
 @NgModule({
   declarations: [
-    ListShellComponent, ListDisplayComponent, CardComponent, NewListComponent, NewCardComponent, ListEditComponent
+    ListShellComponent, ListDisplayComponent, CardComponent, NewListComponent, NewCardComponent, ListEditComponent,
+    ElementFocusDirective
   ],
   imports: [ReactiveFormsModule,
     EffectsModule,
