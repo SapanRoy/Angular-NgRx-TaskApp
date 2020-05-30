@@ -1,4 +1,4 @@
-<form [formGroup]="listForm" (ngSubmit)="addList()">
+<form [formGroup]="listForm" (ngSubmit)="addList()" novalidate>
     <div class="form-row">
         <div class="form-group col">
             <input type="text" placeholder="name (required)" formControlName="name" class="form-control" />
@@ -10,7 +10,7 @@
     <div class="form-row">
         <div class="form-group col">
             <div *ngIf="submitted && formControls.name.errors">
-                <p class="text-danger text-small">Name is required</p>
+                <p class="text-danger text-small">name is required</p>
             </div>
             <div *ngIf="addListError$ | async as addError">
                 <p class="text-danger text-small">{{addError.error}}</p>

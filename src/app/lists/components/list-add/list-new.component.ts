@@ -14,7 +14,7 @@ import * as listActions from '../../state/list.actions';
 import { List } from '../../list';
 
 @Component({
-  selector: 'list-add',
+  selector: 'app-list-add',
   templateUrl: './list-new.component.html',
   styleUrls: ['./list-new.component.scss'],
 })

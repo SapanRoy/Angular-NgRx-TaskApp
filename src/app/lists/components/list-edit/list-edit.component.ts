@@ -19,16 +19,16 @@ export class ListEditComponent implements OnInit {
   @Input()
   list: List;
 
-  listName = new FormControl();
-  listForm: FormGroup;
-  submitted = false;
+  listEditName = new FormControl();
+  listEditForm: FormGroup;
+  editSubmitted = false;
   editListError$: Observable<string>;
 
   constructor(private formBuilder: FormBuilder, private store: Store<fromList.State>) { }
   // convenience getter for easy access to form fields
-  get formControls() { return this.listForm.controls; }
+  get formControls() { return this.listEditForm.controls; }
   ngOnInit() {
-    this.listForm = this.formBuilder.group({
+    this.listEditForm = this.formBuilder.group({
       name: [this.list.name, Validators.required]
     });
     this.editListError$ = this.store.pipe(select(fromList.getError));
@@ -40,7 +40,12 @@ export class ListEditComponent implements OnInit {
     this.store.dispatch(new listActions.ToggleListEditMode(updatedList));
   }
   editList(): void {
-    let updatedList: List = {...this.list, name: this.listForm.value.name };
+    this.editSubmitted = true;
+    // stop here if form is invalid
+    if (this.listEditForm.invalid) {
+      return;
+    }
+    let updatedList: List = {...this.list, name: this.listEditForm.value.name };
     this.store.dispatch(new listActions.EditList(updatedList))
   }
 }

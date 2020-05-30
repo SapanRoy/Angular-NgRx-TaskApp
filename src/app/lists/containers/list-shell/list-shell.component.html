@@ -4,10 +4,13 @@
             <h2 class="text-white">Task Management</h2>
         </div>
     </div>
-    <div class="row p-1">
-        <list-add></list-add>
+    <div class="row pt-2">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+            <app-list-add></app-list-add>
+        </div>
     </div>
     <div class="row">
-        <list-disp [lists]="lists$ | async"></list-disp>
+        <app-list-disp [lists]="lists$ | async"></app-list-disp>
     </div>
 </div>

@@ -21,7 +21,7 @@ import { ConfirmationBoxService } from './../../../shared/services/confirmation-
 import { NewCardComponent } from './../cards/card-new/card-new.component.component';
 
 @Component({
-    selector: 'list-disp',
+    selector: 'app-list-disp',
     templateUrl: './list-display.component.html',
     styleUrls: ['./list-display.component.scss'],
 })
